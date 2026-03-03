@@ -26,6 +26,12 @@
         dest: /tmp/kubernetes-release.key
         mode: '0644'
 
+    - name: Ensure GNUPGHOME exists
+      ansible.builtin.file:
+      path: /root/.gnupg
+      state: directory
+      mode: '0700'
+
     - name: Add the kubernetes signing key
       ansible.builtin.command:
         argv:
