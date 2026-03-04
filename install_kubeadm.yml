@@ -13,6 +13,7 @@
           - ca-certificates
           - curl
           - gpg
+        state: present
 
     - name: Ensuring keyring directory exists if not create it
       ansible.builtin.file:
@@ -25,12 +26,6 @@
         url: https://pkgs.k8s.io/core:/stable:/v1.35/deb/Release.key
         dest: /tmp/kubernetes-release.key
         mode: '0644'
-
-    - name: Ensure GNUPGHOME exists
-      ansible.builtin.file:
-        path: /root/.gnupg
-        state: directory
-        mode: '0700'
 
     - name: Add the kubernetes signing key
       ansible.builtin.command:
