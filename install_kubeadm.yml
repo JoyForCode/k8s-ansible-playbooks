@@ -38,3 +38,27 @@
           - /etc/apt/keyrings/kubernetes-apt-keyring.gpg
           - /tmp/kubernetes-release.key
         creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+    - name: Add the appropriate Kubernetes apt repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.35/deb/ /"
+        filename: kubernetes
+        state: present
+
+    - name: Update the apt package index
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install kubeadm, kubelet and kubectl
+      ansible.builtin.apt:
+        pkg:
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: present
+
+    - name: Enable the kubelet service before running kubeadm:
+      ansible.builtin.systemd_service:
+        name: kubelet
+        enabled: yes
+        state: started
