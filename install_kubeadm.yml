@@ -57,7 +57,7 @@
           - kubectl
         state: present
 
-    - name: Enable the kubelet service before running kubeadm:
+    - name: Enable the kubelet service before running kubeadm
       ansible.builtin.systemd_service:
         name: kubelet
         enabled: yes
