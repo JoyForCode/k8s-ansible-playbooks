@@ -1,4 +1,6 @@
-- hosts: all
+- name: K8s_playbooks
+  hosts: localhost
+  connection: local
   become: yes
   tasks:
 
