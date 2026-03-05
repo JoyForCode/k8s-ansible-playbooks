@@ -1,0 +1,31 @@
+---
+
+- name: Setup containerd, runc, and CNI
+  hosts: localhost
+  connection: local
+  become: true
+
+  vars:
+    containerd_version: "2.2.1"
+    containerd_arch: "amd64"
+    containerd_os: "linux"
+    runc_arch: "amd64"
+    cni_version: "1.9.0"
+    cni_arch: "amd64"
+    cni_os: "linux"
+
+  tasks:
+
+    - name: Download containerd tarball
+      ansible.builtin.get_url:
+        url: "https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/containerd-{{ containerd_version }}-{{ containerd_os }}-{{ containerd_arch }}.tar.gz"
+        dest: "/tmp/containerd-{{ containerd_version }}.tar.gz"
+        checksum: "sha256:https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/containerd-{{ containerd_version }}-{{ containerd_os }}-{{ containerd_arch }}.tar.gz.sha256sum"
+        mode: '0644'
+
+    - name: Extract containerd tarball
+      ansible.builtin.unarchive:
+        src: "/tmp/containerd-{{ containerd_version }}.tar.gz"
+        dest: "/usr/local"
+        remote_src: yes
+        creates: "usr/local/bin/containerd"
