@@ -1,0 +1,15 @@
+---
+
+- name: K8s_playbooks_1
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+
+    - name: Disable swap
+      ansible.builtin.command:
+        argv:
+          - swapoff
+          - -a
+
+    
