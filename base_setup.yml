@@ -15,7 +15,7 @@
     - name: Disable swap in /etc/fstab
       ansible.builtin.replace:
         path: /etc/fstab
-        regexp: '([^#].*\s+swap\s+.*)$'
+        regexp: '^\s*([^#].*\sswap\s+.*)$'
         replace: '# \1'
 
     - name: Load necessary kernel modules
