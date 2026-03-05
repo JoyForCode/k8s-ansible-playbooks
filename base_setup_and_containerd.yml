@@ -12,4 +12,18 @@
           - swapoff
           - -a
 
-    
+    - name: Disable swap in /etc/fstab
+      ansible.builtin.replace:
+        path: /etc/fstab
+        regexp: '([^#].*\s+swap\s+.*)$'
+        replace: '# \1'
+
+    - name: Load necessary kernel modules
+      
+
+    - name: Enable IPv4 packet forwarding
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        state: present
+        reload: true
