@@ -42,8 +42,8 @@
 
     - name: Add the appropriate Kubernetes apt repository
       ansible.builtin.apt_repository:
-        repo: > 
-          eb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] 
+        repo: >
+          eb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg]
           https://pkgs.k8s.io/core:/stable:/v1.35/deb/ /
         filename: kubernetes
         state: present
