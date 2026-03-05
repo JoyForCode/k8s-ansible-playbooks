@@ -11,6 +11,7 @@
         argv:
           - swapoff
           - -a
+      changed_when: false
 
     - name: Disable swap in /etc/fstab
       ansible.builtin.replace:
@@ -22,7 +23,7 @@
       community.general.modprobe:
         name: "{{ item }}"
         state: present
-        persistent: true
+        persistent: present
       loop:
         - overlay
         - br_netfilter
