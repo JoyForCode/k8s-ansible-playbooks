@@ -19,13 +19,9 @@
 
     - name: Download containerd tarball
       ansible.builtin.get_url:
-        url: >
-          https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/
-          containerd-{{ containerd_version }}-{{ containerd_os }}-{{ containerd_arch }}.tar.gz
+        url: "https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/containerd-{{ containerd_version }}-{{ containerd_os }}-{{ containerd_arch }}.tar.gz"
         dest: "/tmp/containerd-{{ containerd_version }}.tar.gz"
-        checksum: >
-          sha256:https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/
-          containerd-{{ containerd_version }}-{{ containerd_os }}-{{ containerd_arch }}.tar.gz.sha256sum
+        checksum: "sha256:https://github.com/containerd/containerd/releases/download/v{{ containerd_version }}/containerd-{{ containerd_version }}-{{ containerd_os }}-{{ containerd_arch }}.tar.gz.sha256sum"
         mode: '0644'
 
     - name: Extract containerd tarball
@@ -71,13 +67,9 @@
 
     - name: Download CNI plugins
       ansible.builtin.get_url:
-        url: >
-          https://github.com/containernetworking/plugins/releases/download/v{{ cni_version }}/
-          cni-plugins-{{ cni_os }}-{{ cni_arch }}-v{{ cni_version }}.tgz
+        url: "https://github.com/containernetworking/plugins/releases/download/v{{ cni_version }}/cni-plugins-{{ cni_os }}-{{ cni_arch }}-v{{ cni_version }}.tgz"
         dest: "/tmp/cni-plugins-v{{ cni_version }}.tgz"
-        checksum: >
-          sha256:https://github.com/containernetworking/plugins/releases/download/v{{ cni_version }}/
-          cni-plugins-{{ cni_os }}-{{ cni_arch }}-v{{ cni_version }}.tgz.sha256sum
+        checksum: "sha256:https://github.com/containernetworking/plugins/releases/download/v{{ cni_version }}/cni-plugins-{{ cni_os }}-{{ cni_arch }}-v{{ cni_version }}.tgz.sha256sum"
         mode: '0644'
 
     - name: Extract CNI plugins
