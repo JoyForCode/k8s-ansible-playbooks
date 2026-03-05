@@ -79,4 +79,26 @@
         remote_src: yes
         creates: "/opt/cni/bin/bridge"
 
-    
+    - name: Create containerd configuration directory
+      ansible.builtin.file:
+        path: /etc/containerd
+        state: directory
+        mode: '0755'
+
+    - name: generate default containerd configuration
+      ansible.builtin.shell:
+        cmd: "containerd config default > /etc/containerd/config.toml"
+        creates: "/etc/containerd/config.toml"
+
+    - name: Set SystemdCgroup to true in containerd configuration
+      ansible.builtin.replace:
+        path: /etc/containerd/config.toml
+        regexp: 'SystemdCgroup = false'
+        replace: 'SystemdCgroup = true'
+      notify: Restart containerd
+
+  handlers:
+    - name: Restart containerd
+      ansible.builtin.systemd_service:
+        name: containerd
+        state: restarted
